@@ -1,6 +1,8 @@
+"use client";
 import Heading from "../misc/heading";
 import CategoriesCard from "../cards/categoriesCard";
 import BasicCategoriesCard from "../cards/basicCategoriesCard";
+import useEmblaCarousel from "embla-carousel-react";
 
 import restaurantsIcon from "../../../../public/HomePage/CategoryIcons/Categories/Restaurants.svg";
 import coffeeSweetsIcon from "../../../../public/HomePage/CategoryIcons/Categories/Coffee & Sweets.svg";
@@ -43,34 +45,34 @@ const categoriesData = [
     bgLight: "bg-rose-100",
     labelText: "Online Shopping",
   },
-  // {
-  //   id: 5,
-  //   image: restaurantsIcon,
-  //   bgMain: "bg-green-400",
-  //   bgLight: "bg-green-100",
-  //   labelText: "Restaurants",
-  // },
-  // {
-  //   id: 6,
-  //   image: coffeeSweetsIcon,
-  //   bgMain: "bg-orange-400",
-  //   bgLight: "bg-orange-100",
-  //   labelText: "Coffee & Sweets",
-  // },
-  // {
-  //   id: 7,
-  //   image: superMarketIcon,
-  //   bgMain: "bg-blue-400",
-  //   bgLight: "bg-blue-100",
-  //   labelText: "Super Market",
-  // },
-  // {
-  //   id: 8,
-  //   image: onlineShoppingIcon,
-  //   bgMain: "bg-pink-400",
-  //   bgLight: "bg-pink-100",
-  //   labelText: "Online Shopping",
-  // },
+  {
+    id: 5,
+    image: restaurantsIcon,
+    bgMain: "bg-green-400",
+    bgLight: "bg-green-100",
+    labelText: "Restaurants",
+  },
+  {
+    id: 6,
+    image: coffeeSweetsIcon,
+    bgMain: "bg-orange-400",
+    bgLight: "bg-orange-100",
+    labelText: "Coffee & Sweets",
+  },
+  {
+    id: 7,
+    image: superMarketIcon,
+    bgMain: "bg-blue-400",
+    bgLight: "bg-blue-100",
+    labelText: "Super Market",
+  },
+  {
+    id: 8,
+    image: onlineShoppingIcon,
+    bgMain: "bg-pink-400",
+    bgLight: "bg-pink-100",
+    labelText: "Online Shopping",
+  },
 ];
 const basicCategoriesData = [
   {
@@ -113,53 +115,62 @@ const basicCategoriesData = [
     image: saloon,
     labelText: "Saloon & Spa’s",
   },
-  // {
-  //   id: 9,
-  //   image: laundary,
-  //   labelText: "Laundry",
-  // },
-  // {
-  //   id: 10,
-  //   image: travel,
-  //   labelText: "Mithu Travels",
-  // },
-  // {
-  //   id: 11,
-  //   image: games,
-  //   labelText: "Games",
-  // },
-  // {
-  //   id: 12,
-  //   image: nfts,
-  //   labelText: "NFT’s",
-  // },
+  {
+    id: 9,
+    image: laundary,
+    labelText: "Laundry",
+  },
+  {
+    id: 10,
+    image: travel,
+    labelText: "Mithu Travels",
+  },
+  {
+    id: 11,
+    image: games,
+    labelText: "Games",
+  },
+  {
+    id: 12,
+    image: nfts,
+    labelText: "NFT’s",
+  },
 ];
 
 export default function Categories() {
+  const [emblaRefCategories] = useEmblaCarousel({ loop: false });
+
+  const [emblaRefBasicCategories] = useEmblaCarousel({ loop: false });
+
   return (
     <section className="w-full flex flex-col py-4 sm:py-8 md:py-10 lg:py-12">
+      {/* First Carousel Section */}
       <Heading>Categories</Heading>
-      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-4 mt-2">
-        {/* <div className="flex items-center overflow-x-scroll gap-4"> */}
-        {categoriesData.map((category) => (
-          <CategoriesCard
-            key={category.id}
-            image={category.image}
-            bgMain={category.bgMain}
-            bgLight={category.bgLight}
-            labelText={category.labelText}
-          />
-        ))}
+      <div className="embla mt-2" ref={emblaRefCategories}>
+        <div className="embla__container">
+          {categoriesData.map((category) => (
+            <div className="embla__slide--categories-card" key={category.id}>
+              <CategoriesCard
+                image={category.image}
+                bgMain={category.bgMain}
+                bgLight={category.bgLight}
+                labelText={category.labelText}
+              />
+            </div>
+          ))}
+        </div>
       </div>
-      <div className="grid grid-cols-1 sm:grid-cols-6 md:grid-cols-8 lg:grid-cols-8 gap-4 mt-2">
-        {/* <div className="flex items-center overflow-x-scroll gap-4"> */}
-        {basicCategoriesData.map((category) => (
-          <BasicCategoriesCard
-            key={category.id}
-            image={category.image}
-            labelText={category.labelText}
-          />
-        ))}
+      <div className="embla mt-8" ref={emblaRefBasicCategories}>
+        <div className="embla__container">
+          {basicCategoriesData.map((category) => (
+            <div className="embla__slide--basic-card" key={category.id}>
+              <BasicCategoriesCard
+                image={category.image}
+                labelText={category.labelText}
+              />
+            </div>
+          ))}
+        </div>
       </div>
     </section>
   );

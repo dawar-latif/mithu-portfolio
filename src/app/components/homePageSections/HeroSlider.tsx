@@ -30,7 +30,7 @@ export default function HeroSlider() {
           <Image src={sliderImage1} alt="..." />
         </div>
       </div>
-      <div className="embla__controls">
+      {/* <div className="embla__controls">
         <div className="embla__dots">
           {scrollSnaps.map((_, index) => (
             <DotButton
@@ -42,7 +42,7 @@ export default function HeroSlider() {
             />
           ))}
         </div>
-      </div>
+      </div> */}
     </div>
   );
 }

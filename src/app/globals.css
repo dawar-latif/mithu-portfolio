@@ -50,7 +50,7 @@ body {
   justify-content: flex-end;
   align-items: center;
   margin-right: calc((2.6rem - 1.4rem) / 2 * -1);
-}
+} 
 .embla__dot {
   -webkit-tap-highlight-color: rgba(var(--text-high-contrast-rgb-value), 0.5);
   -webkit-appearance: none;
@@ -83,3 +83,51 @@ body {
   box-shadow: inset 0 0 0 0.2rem var(--text-body);
 }
 
+
+.embla__slide--categories-card {
+  flex: 0 0 100%; /* Default: 1 item visible on smallest screens */
+  min-width: 0; /* Required for flex items */
+  padding-left: 1rem; /* Added missing value and gap */
+}
+
+/* sm: 2 items visible (min-width: 640px) */
+@media (min-width: 640px) {
+  .embla__slide--categories-card {
+    flex: 0 0 50%;
+  }
+}
+
+/* md: 4 items visible (min-width: 768px) */
+@media (min-width: 768px) {
+  .embla__slide--categories-card {
+    flex: 0 0 25%;
+  }
+}
+
+/* Optional: Add lg breakpoint if needed (min-width: 1024px) */
+/* @media (min-width: 1024px) {
+  .embla__slide--categories-card {
+     flex: 0 0 25%; // Or more if needed
+  }
+} */
+
+
+.embla__slide--basic-card {
+  flex: 0 0 33%; /* Default: 2 items visible on smallest screens */
+  min-width: 0; /* Required for flex items */
+  padding-left: 1rem; /* Gap */
+}
+
+/* sm: 6 items visible (min-width: 640px) */
+@media (min-width: 640px) {
+  .embla__slide--basic-card {
+    flex: 0 0 calc(100% / 4);
+  }
+}
+
+/* md: 8 items visible (min-width: 768px) */
+@media (min-width: 768px) {
+  .embla__slide--basic-card {
+    flex: 0 0 calc(100% / 8);
+  }
+}

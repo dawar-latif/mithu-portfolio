@@ -15,7 +15,7 @@ export default function CategoriesCard({
 }: CardProps) {
   return (
     <div
-      className={`flex flex-col rounded-xl overflow-hidden shadow-md w-full min-h-36 cursor-pointer`}
+      className={`flex flex-col rounded-xl overflow-hidden shadow-[0_0_10px_0_hsla(0,0%,0%,0.15)] w-full min-h-36 cursor-pointer`}
     >
       {/* Top section with main color */}
       <div
@@ -25,8 +25,9 @@ export default function CategoriesCard({
           <Image
             src={image}
             alt={labelText ?? "Category icon"}
-            width={48}
-            height={48}
+            className="h-full"
+            // width={48}
+            // height={48}
           />
         )}
       </div>
