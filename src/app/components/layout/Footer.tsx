@@ -163,7 +163,7 @@ export default function Footer() {
         {/* email input large screen */}
         <div className="min-w-1 hidden xl:flex flex-col py-4">
           <label className="text-[#888] text-sm">SUBSCRIBE</label>
-          <div className="flex min-w-2 lg:max-w-full items-center justify-between gap-4 bg-[#FCFCFC] border-2 border-[#888] rounded-[10px] px-6 py-2 ">
+          <div className="flex min-w-1 lg:max-w-full items-center justify-between gap-4 bg-[#FCFCFC] border-2 border-[#888] rounded-[10px] px-6 py-2 ">
             <input
               type="text"
               placeholder="Email"
