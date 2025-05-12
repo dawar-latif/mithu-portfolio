@@ -9,7 +9,7 @@ import Link from "next/link";
 export default function Footer() {
   return (
     <footer className="w-full flex flex-col items-center font-manrope">
-      <div className=" grid grid-cols-1 gap-4 lg:grid-cols-2 xl:grid-cols-3 px-4 md:px-10 lg:px-32 pt-4 sm:pt-8 md:pt-16 lg:pt-32 pb-2 sm:pb-4 md:pb-8 lg:pb-10">
+      <div className=" grid grid-cols-1 gap-4 lg:grid-cols-2 xl:grid-cols-3 px-2 md:px-10 lg:px-32 pt-4 sm:pt-8 md:pt-16 lg:pt-32 pb-2 sm:pb-4 md:pb-8 lg:pb-10">
         <div className="grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-1">
           {/* logo section */}
           <div className="flex flex-col gap-4 justify-center items-center md:items-start ">
@@ -179,7 +179,7 @@ export default function Footer() {
         </div>
       </div>
       {/* black strip bottom*/}
-      <div className=" w-full text-white text-xs bg-[#010101] flex justify-center md:justify-end items-center gap-6 md:gap-4 font-medium px-4 md:px-10 lg:px-32 py-4 sm:py-6 ">
+      <div className=" w-full text-white text-xs bg-[#010101] flex justify-center md:justify-end items-center gap-6 md:gap-4 font-medium px-2 md:px-10 lg:px-32 py-4 sm:py-6 ">
         <h2>Terms and conditions</h2>
         <h2>Privacy Policy</h2>
         <h2>© 2025 Mithu</h2>

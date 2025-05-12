@@ -28,7 +28,7 @@ export default function Banner() {
       <div className="hidden md:flex w-1/3 items-end relative min-h-64">
         <Image
           src={phone}
-          className="absolute bottom-0 right-0 md:h-[290px]  lg:h-[310px] xl:h-[330px]"
+          className="absolute bottom-0 right-0 md:size-[290px]  lg:size-[310px] xl:size-[330px]"
           alt="android phone hand"
         />
       </div>

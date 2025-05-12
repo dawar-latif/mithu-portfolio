@@ -1,8 +1,9 @@
 "use client";
+import { useCallback, useEffect, useState } from "react";
+import useEmblaCarousel from "embla-carousel-react";
 import Heading from "../misc/heading";
 import CategoriesCard from "../cards/categoriesCard";
 import BasicCategoriesCard from "../cards/basicCategoriesCard";
-import useEmblaCarousel from "embla-carousel-react";
 
 import restaurantsIcon from "../../../../public/HomePage/CategoryIcons/Categories/Restaurants.svg";
 import coffeeSweetsIcon from "../../../../public/HomePage/CategoryIcons/Categories/Coffee & Sweets.svg";
@@ -18,7 +19,7 @@ import saloon from "../../../../public/HomePage/CategoryIcons/Categories 1/Saloo
 import nextIcon from "../../../../public/HomePage/Next Icon.svg";
 import previousIcon from "../../../../public/HomePage/Previous Icon.svg";
 import Image from "next/image";
-import { useCallback, useEffect, useState } from "react";
+import CarouselNavigation from "../misc/carouselButtons";
 
 const categoriesData = [
   {
@@ -150,75 +151,22 @@ export default function Categories() {
   // Initialize Embla Carousel for the second list
   const [emblaRefBasicCategories] = useEmblaCarousel({ loop: false });
 
-  // State for navigation button visibility/state
-  const [canScrollPrev, setCanScrollPrev] = useState(false);
-  const [canScrollNext, setCanScrollNext] = useState(false);
-
-  // Function to update button states
-  // Added EmblaCarouselType annotation
-  const updateButtonStates = useCallback((emblaApi: any) => {
-    if (!emblaApi) return; // Good practice
-    setCanScrollPrev(emblaApi.canScrollPrev());
-    setCanScrollNext(emblaApi.canScrollNext());
-  }, []);
-
-  // Effect to subscribe to Embla API events
-  useEffect(() => {
-    if (!emblaApiCategories) return;
-
-    // Update state on init and whenever the carousel scrolls
-    emblaApiCategories.on("init", updateButtonStates);
-    emblaApiCategories.on("select", updateButtonStates);
-    // Initial state check
-    updateButtonStates(emblaApiCategories);
-
-    // Cleanup event listeners
-    return () => {
-      emblaApiCategories.off("select", updateButtonStates);
-      emblaApiCategories.off("init", updateButtonStates); // Clean up init listener too
-    };
-  }, [emblaApiCategories, updateButtonStates]);
-
-  // Handler for the "View all" click
   const handleViewAllClick = () => {
     alert("View All clicked!");
-    // In a real app, you would typically navigate here:
-    // router.push('/categories');
   };
 
   return (
     <section className="w-full flex flex-col py-4 sm:py-8 md:py-10 lg:py-12">
-      {/* First Carousel Section */}
       {/* Container for Heading, View All, and Navigation Buttons */}
-      <div className="flex justify-between items-center mb-4">
-        <Heading>Categories</Heading>
-        <div className="flex items-center gap-4">
-          {/* View All Link/Button */}
-          <button
-            onClick={handleViewAllClick}
-            className="text-blue-600 hover:underline text-base md:text-lg bg-transparent border-none cursor-pointer p-0" // Tailwind classes for styling as a link
-          >
-            View all &gt;
-          </button>
-
-          {/* Navigation Buttons */}
-          <button
-            className="embla__button embla__button--prev disabled:opacity-50 disabled:cursor-not-allowed p-2 rounded-full border border-gray-300" // Example Tailwind classes
-            onClick={() => emblaApiCategories?.scrollPrev()}
-            disabled={!canScrollPrev}
-          >
-            <Image src={previousIcon} alt="Previous" width={24} height={24} />
-          </button>
-          <button
-            className="embla__button embla__button--next disabled:opacity-50 disabled:cursor-not-allowed p-2 rounded-full border border-gray-300" // Example Tailwind classes
-            onClick={() => emblaApiCategories?.scrollNext()}
-            disabled={!canScrollNext}
-          >
-            <Image src={nextIcon} alt="Next" width={24} height={24} />
-          </button>
-        </div>
-      </div>
-      {/* Embla Carousel Container for Categories */}
+      <Heading className="mb-0">Categories</Heading>
+      {/* <div className="flex justify-between items-center mb-1 md:mb-4">
+        <Heading className="mb-0">Categories</Heading>
+        <CarouselNavigation
+          emblaApi={emblaApiCategories} // Pass the API instance
+          onViewAllClick={handleViewAllClick} // Pass the click handler
+        />
+      </div> */}
+      {/* First Carousel Section */}
       <div className="embla mt-2" ref={emblaRefCategories}>
         <div className="embla__container">
           {categoriesData.map((category) => (
@@ -234,7 +182,7 @@ export default function Categories() {
         </div>
       </div>
       {/* Second Carousel Section */}
-      <div className="embla mt-8" ref={emblaRefBasicCategories}>
+      <div className="embla mt-6" ref={emblaRefBasicCategories}>
         <div className="embla__container">
           {basicCategoriesData.map((category) => (
             <div className="embla__slide--basic-card" key={category.id}>

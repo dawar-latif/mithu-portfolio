@@ -13,7 +13,7 @@ export default function Home() {
     <div className="flex flex-col min-h-screen bg-white">
       <main className="flex-1 flex flex-col">
         <HeroSlider />
-        <div className="px-4 md:px-10 lg:px-32 ">
+        <div className="px-2 md:px-10 lg:px-32 ">
           <Categories />
           <AffiliateStores />
           <UnmissableOffers />

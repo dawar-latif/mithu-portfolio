@@ -8,7 +8,6 @@
   --brand-dark: #1E9B6A;
   --brand-xlight: #E6FFF3;
   --brand-xdark: #157A4A;
-  --radius: 0.625rem;
 }
 
 
@@ -21,6 +20,11 @@ body {
 }
 .embla__container {
   display: flex;
+}
+.embla__container_store {
+  display: flex;
+  padding-top:2px;
+  padding-bottom:2px
 }
 .embla__slide {
   flex: 0 0 100%;
@@ -85,7 +89,7 @@ body {
 
 
 .embla__slide--categories-card {
-  flex: 0 0 100%; /* Default: 1 item visible on smallest screens */
+  flex: 0 0 75%; /* Default: 1 item visible on smallest screens */
   min-width: 0; /* Required for flex items */
   padding-left: 1rem; /* Added missing value and gap */
 }
@@ -113,15 +117,16 @@ body {
 
 
 .embla__slide--basic-card {
-  flex: 0 0 33%; /* Default: 2 items visible on smallest screens */
+  flex: 0 0 25%; /* Default: 2 items visible on smallest screens */
   min-width: 0; /* Required for flex items */
-  padding-left: 1rem; /* Gap */
+  padding-left: 2px; /* Gap */
 }
 
 /* sm: 6 items visible (min-width: 640px) */
 @media (min-width: 640px) {
   .embla__slide--basic-card {
-    flex: 0 0 calc(100% / 4);
+    flex: 0 0 calc(100% / 6);
+    padding-left: 4px;
   }
 }
 
@@ -129,5 +134,97 @@ body {
 @media (min-width: 768px) {
   .embla__slide--basic-card {
     flex: 0 0 calc(100% / 8);
+    padding-left: 8px;
+  }
+}
+
+
+
+.embla__slide--offers-card {
+  flex: 0 0 75%; /* Default: 1 item visible on smallest screens */
+  min-width: 0; /* Required for flex items */
+  padding-left: 1rem; /* Added missing value and gap */
+}
+
+/* sm: 2 items visible (min-width: 640px) */
+@media (min-width: 640px) {
+  .embla__slide--offers-card {
+    flex: 0 0 50%;
+  }
+}
+
+/* md: 4 items visible (min-width: 768px) */
+@media (min-width: 768px) {
+  .embla__slide--offers-card {
+    flex: 0 0 40%;
+  }
+}
+
+/* Optional: Add lg breakpoint if needed (min-width: 1024px) */
+@media (min-width: 1500px) {
+  .embla__slide--offers-card {
+     flex: 0 0 25%; 
+  }
+}
+
+
+
+.embla__slide--stores-card {
+  flex: 0 0 75%; /* Default: 1 item visible on smallest screens */
+  min-width: 0; /* Required for flex items */
+  padding-left: 1rem; /* Added missing value and gap */
+}
+
+/* sm: 2 items visible (min-width: 640px) */
+@media (min-width: 640px) {
+  .embla__slide--stores-card {
+    flex: 0 0 50%;
+  }
+}
+
+/* md: 4 items visible (min-width: 768px) */
+@media (min-width: 768px) {
+  .embla__slide--stores-card {
+    flex: 0 0 35%;
+  }
+}
+
+/* Optional: Add lg breakpoint if needed (min-width: 1024px) */
+@media (min-width: 1024px) {
+  .embla__slide--stores-card {
+     flex: 0 0 20%; 
+  }
+}
+
+.embla__slide--sellers-card {
+  flex: 0 0 75%; /* Default: 1 item visible on smallest screens */
+  min-width: 0; /* Required for flex items */
+  padding-left: 1rem; /* Added missing value and gap */
+}
+
+/* sm: 2 items visible (min-width: 640px) */
+@media (min-width: 640px) {
+  .embla__slide--sellers-card {
+    flex: 0 0 50%;
+  }
+}
+
+/* md: 4 items visible (min-width: 768px) */
+@media (min-width: 768px) {
+  .embla__slide--sellers-card {
+    flex: 0 0 40%;
+  }
+}
+
+/* Optional: Add lg breakpoint if needed (min-width: 1024px) */
+@media (min-width: 1024px) {
+  .embla__slide--sellers-card {
+     flex: 0 0 30%; 
+  }
+}
+
+@media (min-width: 1600px) {
+  .embla__slide--sellers-card {
+     flex: 0 0 25%; 
   }
 }

@@ -7,7 +7,7 @@ import Link from "next/link";
 
 export default function Header() {
   return (
-    <header className="w-full bg-white shadow-[0_0_10px_0_rgba(0,0,0,0.15)] px-4 md:px-10 lg:px-32 flex items-center justify-between py-4 gap-2 ">
+    <header className="w-full bg-white shadow-[0_0_10px_0_rgba(0,0,0,0.15)] px-2 md:px-10 lg:px-32 flex items-center justify-between py-2 md:py-4 gap-2 ">
       {/* logo/hamIcon */}
       <Image
         src={menu}
@@ -20,7 +20,7 @@ export default function Header() {
         className="w-36 h-8 hidden sm:flex cursor-pointer"
       />
       {/* serach field */}
-      <div className="flex min-w-2 lg:max-w-full items-center justify-between gap-4 bg-[#FCFCFC] border-2 border-[#888] rounded-[10px] px-6 py-2 ">
+      <div className="flex min-w-10/12 sm:min-w-2 lg:max-w-full items-center justify-between gap-2 md:gap-4 bg-[#FCFCFC] border-2 border-[#888] rounded-[10px] px-2 md:px-6 py-2 ">
         <input
           type="text"
           placeholder="Search for restaurant, stores etc..."
@@ -46,19 +46,19 @@ export default function Header() {
         <nav className="flex gap-2 items-center">
           <Link
             href="#"
-            className="text-[#010101] hover:text-brand text-lg font-medium font-manrope transition-colors"
+            className="text-[#010101] hover:text-[#3FD554] text-lg font-semibold font-manrope transition-colors"
           >
             About&nbsp;Us
           </Link>
           <Link
             href="#"
-            className="text-[#010101] hover:text-brand text-lg font-medium font-manrope transition-colors"
+            className="text-[#010101] hover:text-[#3FD554] text-lg font-semibold font-manrope transition-colors"
           >
             Resources
           </Link>
           <Link
             href="#"
-            className="text-[#010101] hover:text-brand text-lg font-medium font-manrope transition-colors"
+            className="text-[#010101] hover:text-[#3FD554] text-lg font-semibold font-manrope transition-colors"
           >
             Company
           </Link>
@@ -68,7 +68,7 @@ export default function Header() {
           <button className="border-2 border-[#010101] text-[#010101] px-6 py-2 rounded-lg font-semibold font-manrope hover:bg-gray-100 transition-colors cursor-pointer">
             Log In
           </button>
-          <button className="bg-[#010101] text-white px-6 py-2 rounded-lg font-semibold font-manrope hover:bg-brand transition-colors cursor-pointer">
+          <button className="bg-[#010101] text-white px-6 py-2 rounded-lg font-semibold font-manrope hover:bg-[#3FD554] transition-colors cursor-pointer">
             Sign Up
           </button>
         </div>

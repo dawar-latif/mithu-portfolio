@@ -14,12 +14,12 @@ export default function Heading({
   // Destructure className and provide a default empty string
   return (
     // Apply the className prop along with any existing classes
-    <div className={`gap-1 sm:gap-2 md:gap-4 mb-2 ${className}`}>
-      <h1 className="text-xl md:text-2xl lg:text-4xl font-bold text-black pb-1 font-manrope">
+    <div className={`gap-1 sm:gap-2 md:gap-4 ${className}`}>
+      <h1 className="text-base md:text-xl lg:text-2xl font-bold text-black pb-1 font-manrope">
         {children}
       </h1>
       {subheading && (
-        <div className="text-sm md:text-base lg:text-xl font-medium text-[#888] ">
+        <div className="text-xs md:text-sm lg:text-base font-medium text-[#2E2C36] pb-1">
           {subheading}
         </div>
       )}

@@ -7,7 +7,7 @@ interface CardProps {
 
 export default function BasicCategoriesCard({ image, labelText }: CardProps) {
   return (
-    <div className={`flex flex-col cursor-pointer min-h-32`}>
+    <div className={`flex flex-col cursor-pointer min-h-16 md:min-h-32`}>
       {/* Top section with main color */}
       <div className={`flex justify-center items-center p-1 min-h-8/12`}>
         {image && (
@@ -16,12 +16,12 @@ export default function BasicCategoriesCard({ image, labelText }: CardProps) {
             alt={labelText ?? "Category"}
             // width={72}
             // height={72}
-            className="size-36"
+            className="size-12 md:size-28"
           />
         )}
       </div>
       <div
-        className={`flex justify-center items-center text-base font-normal text-[#010101]  `}
+        className={`flex justify-center items-center text-xs md:text-base font-normal text-[#010101]  `}
       >
         {labelText && <span className="text-center">{labelText}</span>}
       </div>

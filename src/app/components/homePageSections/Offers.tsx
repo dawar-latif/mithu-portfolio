@@ -31,11 +31,11 @@ export default function Offers() {
             <div className="flex flex-col justify-end h-full">
               <div className="flex justify-between items-center ">
                 <div className={`flex flex-col `}>
-                  <span className="font-semibold text-xl ">
+                  <span className="font-semibold text-base md:text-xl">
                     {offer.labelText}
                   </span>
                   <div className="flex items-center gap-1">
-                    <span className="text-sm font-normal ">
+                    <span className="text-xs md:text-sm font-normal ">
                       {offer.discription}
                     </span>
                   </div>

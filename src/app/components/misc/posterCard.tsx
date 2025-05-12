@@ -17,7 +17,7 @@ export default function PosterCard({
 
   return (
     <div
-      className={`flex flex-col rounded-xl shadow-md w-full relative overflow-hidden ${className}`}
+      className={`flex flex-col rounded-xl shadow-md w-full relative h-full ${className}`}
       style={{
         backgroundImage: backgroundImageUrl
           ? `url('${backgroundImageUrl}')`
@@ -28,8 +28,8 @@ export default function PosterCard({
         minHeight: "350px", // Example minimum height, adjust as needed
       }}
     >
-      <div className="absolute inset-0 bg-black opacity-24 z-0"></div>
-      <div className="relative z-10 p-4 sm:p-6 md:p-8 flex flex-col text-white h-full">
+      <div className="absolute inset-0 bg-black opacity-24 z-0 rounded-xl"></div>
+      <div className="relative z-10 p-4 sm:p-6 md:p-8 flex flex-col text-white h-full rounded-xl">
         {children}
       </div>
     </div>
