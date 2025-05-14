@@ -108,13 +108,13 @@ export default function UnmissableOffers() {
   return (
     <section className="w-full flex flex-col py-4 sm:py-8 md:py-10 lg:py-12">
       {/* Container for Heading, View All, and Navigation Buttons */}
-      <div className="flex justify-between items-center mb-1 md:mb-4">
+      {/* <div className="flex justify-between items-center mb-1 md:mb-4">
         <Heading className="mb-0">Unmissable Offers</Heading>
         <CarouselNavigation
           emblaApi={emblaApiOffers} // Pass the API instance
           onViewAllClick={handleViewAllClick} // Pass the click handler
         />
-      </div>
+      </div> */}
 
       <div className="embla mt-2" ref={emblaRefOffers}>
         <div className="embla__container">

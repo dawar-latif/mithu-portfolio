@@ -149,7 +149,7 @@ export default function Categories() {
   }); // Get the API
 
   // Initialize Embla Carousel for the second list
-  const [emblaRefBasicCategories] = useEmblaCarousel({ loop: false });
+  const [emblaRefBasicCategories] = useEmblaCarousel({ loop: true });
 
   const handleViewAllClick = () => {
     alert("View All clicked!");
