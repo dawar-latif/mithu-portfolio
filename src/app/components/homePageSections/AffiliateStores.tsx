@@ -78,7 +78,7 @@ const storeData = [
 export default function AffiliateStores() {
   // Initialize Embla Carousel for the first list and get the API
   const [emblaRefOffers, emblaApiOffers] = useEmblaCarousel({
-    loop: false,
+    loop: true,
   }); // Get the API
 
   const handleViewAllClick = () => {

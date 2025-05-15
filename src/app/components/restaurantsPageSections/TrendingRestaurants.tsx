@@ -15,7 +15,18 @@ import Restaurantlogo1 from "../../../../public/HomePage/TrendingRestaurants/Log
 import Restaurantlogo2 from "../../../../public/HomePage/TrendingRestaurants/Logos/Logos-1.png";
 import Restaurantlogo3 from "../../../../public/HomePage/TrendingRestaurants/Logos/Logos-2.png";
 import Restaurantlogo4 from "../../../../public/HomePage/TrendingRestaurants/Logos/Logos-3.png";
+
 import star from "../../../../public/HomePage/TrendingRestaurants/Logos/Star.svg";
+import sortIcon from "../../../../public/sortIcon.png";
+import mapIcon from "../../../../public/map.png";
+import listIcon from "../../../../public/list.png";
+
+import coins from "../../../../public/RestaurantPage/filterIcons/Cash in Hand.png";
+import cup from "../../../../public/RestaurantPage/filterIcons/Cup With Straw.png";
+import popular from "../../../../public/RestaurantPage/filterIcons/Budget Friendly.png";
+import open from "../../../../public/RestaurantPage/filterIcons/openNow.png";
+import newMithu from "../../../../public/RestaurantPage/filterIcons/mithuNew.png";
+import { useState } from "react";
 
 const trendingRestaurants = [
   {
@@ -102,43 +113,38 @@ const trendingRestaurants = [
 ];
 
 const filterOptions = [
-  { id: 1, label: "Pay with Coins", icon: "<svg ...>...</svg>" },
-  { id: 2, label: "For You", icon: "<svg ...>...</svg>" },
-  { id: 3, label: "Popular", icon: "<svg ...>...</svg>" },
-  { id: 4, label: "Open Now", icon: "<svg ...>...</svg>" },
-  { id: 5, label: "New on Mithu", icon: "<svg ...>...</svg>" },
+  { id: 1, label: "Pay with Coins", icon: coins },
+  { id: 2, label: "For You", icon: cup },
+  { id: 3, label: "Popular", icon: popular },
+  { id: 4, label: "Open Now", icon: open },
+  { id: 5, label: "New on Mithu", icon: newMithu },
   // Add more filter options as needed
 ];
 
 export default function TrendingRestaurants() {
-  // Initialize Embla Carousel for the first list and get the API
-  const [emblaRefOffers, emblaApiOffers] = useEmblaCarousel({
-    loop: false,
-  });
+  const [currentView, setCurrentView] = useState("list"); // State to toggle between 'list' and 'map'
+
+  const [emblaRefOffers] = useEmblaCarousel({ loop: false }); // Keeping Embla if you still use it for a part of the listing
 
   const handleFilterClick = (filterId: number) => {
     console.log(`Filter ${filterId} clicked`);
-    // Implement filter logic here
   };
 
   const handleSortClick = () => {
     console.log("Sort button clicked");
-    // Implement sort logic (e.g., open dropdown)
   };
 
-  const handleViewMapClick = () => {
-    console.log("View Map button clicked");
-    // Implement view map logic (e.g., navigate to map page or show map modal)
+  const handleToggleView = () => {
+    setCurrentView((prevView) => (prevView === "list" ? "map" : "list"));
   };
-
   return (
     <section className="w-full flex flex-col py-4 sm:py-8 md:py-16 lg:py-32">
       <h1 className="text-xl md:text-2xl lg:text-3xl font-bold text-black pb-1 font-manrope ">
         Restaurants in Riyadh, KSA
       </h1>
-
+      {/* filterOptions  */}
       <div className="flex flex-wrap items-center gap-2  py-4">
-        <button className="flex-shrink-0 p-2 rounded-full border border-gray-300">
+        <button className="flex-shrink-0 p-2 rounded-full border border-gray-300 cursor-pointer">
           <svg
             xmlns="http://www.w3.org/2000/svg"
             fill="none"
@@ -159,44 +165,34 @@ export default function TrendingRestaurants() {
           {filterOptions.map((filter) => (
             <button
               key={filter.id}
-              className="flex-shrink-0 flex items-center gap-1 px-4 py-2 rounded-md border border-gray-300 text-sm font-medium hover:bg-gray-100 transition-colors"
+              className="flex-shrink-0 flex items-center gap-1 px-4 py-2 rounded-md border cursor-pointer border-gray-300 text-sm font-medium hover:bg-gray-100 transition-colors"
               onClick={() => handleFilterClick(filter.id)}
             >
-              {filter.label === "New on Mithu" && (
-                <span className="size-2 bg-green-500 rounded-full"></span>
-              )}
-              {filter.label}
+              <Image alt="icon/..." className="size-4" src={filter.icon} />
+              <span className="hidden md:flex justify-center items-center">
+                {filter.label}
+              </span>
             </button>
           ))}
         </div>
       </div>
 
-      <div className="flex justify-between items-center mb-1 md:mb-4">
+      {/* heading */}
+      <div className="md:flex justify-between items-center md:items-start mb-1 md:mb-4 ">
         <Heading
           className="mb-0"
           subheading="We bring you the best value dining deals to let you experience the best!"
         >
           Dining / Restaurant
         </Heading>
-        <div className="flex items-center gap-2 flex-shrink-0">
-          <button
-            className="flex items-center gap-1 px-4 py-2 rounded-lg border border-gray-300 text-sm font-medium hover:bg-gray-100 transition-colors"
+        {/* sort / map button  */}
+        <div className="flex items-center gap-2 flex-shrink-0 justify-center">
+          <Button
+            className="px-4 py-2 "
             onClick={handleSortClick}
+            variant="secondary"
           >
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              fill="none"
-              viewBox="0 0 24 24"
-              strokeWidth={1.5}
-              stroke="currentColor"
-              className="size-5"
-            >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                d="M3 4.5h15.75m-15.75 0v9.75m0 9.75h15.75m-15.75 0v-9.75m0 0h9.75m-9.75 0c1.331 0 2.603.413 3.67 1.198M14.25 10.5c1.331 0 2.603.413 3.67 1.198M16.5 18.75h-2.25m2.25 0-.375.375M16.5 18.75 16.125 19.125"
-              />
-            </svg>
+            <Image src={sortIcon} className="size-5" alt="sort" />
             Sort
             <svg
               xmlns="http://www.w3.org/2000/svg"
@@ -212,35 +208,31 @@ export default function TrendingRestaurants() {
                 d="m19.5 8.25-7.5 7.5-7.5-7.5"
               />
             </svg>
-          </button>
+          </Button>
 
-          <button
-            className="flex items-center gap-1 px-4 py-2 rounded-lg bg-black text-white text-sm font-medium hover:bg-gray-800 transition-colors"
-            onClick={handleViewMapClick}
-          >
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              fill="none"
-              viewBox="0 0 24 24"
-              strokeWidth={1.5}
-              stroke="currentColor"
-              className="size-5"
-            >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                d="M9 6.75V15m6-6v8.25m.75-12H9v9l6-3 6 3V7.5c0-1.5-1.5-3-3-3h-.75Z"
-              />
-            </svg>
-            Show Map
-          </button>
+          <Button className="px-4 py-2 " onClick={handleToggleView}>
+            {currentView === "list" ? (
+              <Image src={mapIcon} className="size-5" alt="sort" />
+            ) : (
+              <Image src={listIcon} className="size-5" alt="sort" />
+            )}
+            {currentView === "list" ? "Show Map" : "Show List"}
+          </Button>
         </div>
       </div>
 
-      <div className="embla mt-2" ref={emblaRefOffers}>
-        <div className="embla__container_store">
-          {trendingRestaurants.map((res) => (
-            <div className="embla__slide--sellers-card" key={res.id}>
+      {/* Content Area: List or List + Map */}
+      <div
+        className={`flex flex-col md:flex-row gap-4 ${
+          currentView === "map" ? "md:h-[600px]" : ""
+        }`}
+      >
+        {" "}
+        {/* Add height for map view */}
+        {/* Restaurant List Section */}
+        {currentView === "list" ? (
+          <div className="w-full grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+            {trendingRestaurants.map((res) => (
               <Card
                 key={res.id}
                 image={res.image}
@@ -248,7 +240,13 @@ export default function TrendingRestaurants() {
               >
                 <div className="flex justify-between items-start">
                   <div className="flex items-center gap-1 md:gap-2 text-black">
-                    <Image src={res.logo} alt="badge" className="rounded-xl " />
+                    <Image
+                      src={res.logo}
+                      alt="badge"
+                      className="rounded-md"
+                      width={40}
+                      height={40}
+                    />
                     <div className="flex flex-col gap-[2px]">
                       <span className="text:sm md:text-base font-normal text-[#888]">
                         {res.distance}
@@ -262,14 +260,78 @@ export default function TrendingRestaurants() {
                     </div>
                   </div>
                   <Button className="py-[4px] px-[12px] gap-[2px]">
-                    <Image src={star} alt="rating" className="size-[16px] " />
+                    {/* Replace with actual star icon rendering */}
+                    <Image
+                      src={star}
+                      alt="rating"
+                      className="size-[16px]"
+                      width={16}
+                      height={16}
+                    />
                     <span className="">{res.rating}</span>
                   </Button>
                 </div>
               </Card>
+            ))}
+          </div>
+        ) : (
+          <>
+            {/* List on the left (md+) or full width stacked (small screens) */}
+            <div className="w-full md:w-1/2 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-1 gap-4 overflow-y-auto p-1 h-96 md:h-full">
+              {" "}
+              {/* Added overflow and height for scrolling */}
+              {trendingRestaurants.map((res) => (
+                <Card
+                  key={res.id}
+                  image={res.image}
+                  imageBadgeText={res.pointsBack}
+                >
+                  <div className="flex justify-between items-start">
+                    <div className="flex items-center gap-1 md:gap-2 text-black">
+                      <Image
+                        src={res.logo}
+                        alt="badge"
+                        className="rounded-md"
+                        width={40}
+                        height={40}
+                      />
+                      <div className="flex flex-col gap-[2px]">
+                        <span className="text:sm md:text-base font-normal text-[#888]">
+                          {res.distance}
+                        </span>
+                        <span className="text-base md:text-xl font-semibold ">
+                          {res.name}
+                        </span>
+                        <span className="text:sm md:text-base font-normal ">
+                          {res.cuisine}
+                        </span>
+                      </div>
+                    </div>
+                    <Button className="py-[4px] px-[12px] gap-[2px]">
+                      <Image
+                        src={star}
+                        alt="rating"
+                        className="size-[16px]"
+                        width={16}
+                        height={16}
+                      />
+                      <span className="">{res.rating}</span>
+                    </Button>
+                  </div>
+                </Card>
+              ))}
             </div>
-          ))}
-        </div>
+
+            {/* Map Section on the right (md+) or full width stacked (small screens) */}
+            <div className="w-full md:w-1/2 bg-gray-200 rounded-lg overflow-hidden">
+              {/* Placeholder for your actual Map Component */}
+              <div className="w-full h-full flex items-center justify-center text-gray-500">
+                Map Component Placeholder
+                {/* <YourMapComponent data={trendingRestaurants} /> */}
+              </div>
+            </div>
+          </>
+        )}
       </div>
     </section>
   );

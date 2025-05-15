@@ -7,6 +7,7 @@ interface CardProps {
   image?: string | StaticImageData;
   imageBadgeText?: string;
   logo?: string | StaticImageData;
+  className?: string;
 }
 
 export default function Card({
@@ -14,10 +15,11 @@ export default function Card({
   image,
   imageBadgeText,
   logo,
+  className = "",
 }: CardProps) {
   return (
     <div
-      className={`flex flex-col rounded-2xl shadow-[0_0_10px_0_hsla(0,0%,0%,0.15)] w-full cursor-pointer p-2 sm:p-3 md:p-4 gap-2 sm:gap-3 md:gap-4`}
+      className={`flex flex-col rounded-2xl shadow-[0_0_10px_0_hsla(0,0%,0%,0.15)] w-full cursor-pointer p-2 sm:p-3 md:p-4 gap-2 sm:gap-3 md:gap-4 ${className}`}
     >
       <div
         className={`flex justify-center items-center rounded-2xl overflow-hidden relative`}

@@ -145,7 +145,7 @@ const basicCategoriesData = [
 export default function Categories() {
   // Initialize Embla Carousel for the first list and get the API
   const [emblaRefCategories, emblaApiCategories] = useEmblaCarousel({
-    loop: false,
+    loop: true,
   }); // Get the API
 
   // Initialize Embla Carousel for the second list

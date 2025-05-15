@@ -1,3 +1,4 @@
+import BestSellers from "../components/restaurantsPageSections/BestSellers";
 import Categories from "../components/restaurantsPageSections/Categories";
 import Slider from "../components/restaurantsPageSections/Slider";
 import TrendingRestaurants from "../components/restaurantsPageSections/TrendingRestaurants";
@@ -12,15 +13,9 @@ export default function Restaurants() {
           <UnmissableOffers />
           <Categories />
           <TrendingRestaurants />
-          {/* <BestSellers /> */}
         </div>
+        <BestSellers />
       </main>
     </div>
   );
 }
-
-const navLinks = [
-  { href: "#", label: "About Us" },
-  { href: "#", label: "Resources" },
-  { href: "#", label: "Company" },
-];

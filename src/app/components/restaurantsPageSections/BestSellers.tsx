@@ -110,7 +110,7 @@ const bestSellers = [
 export default function BestSellers() {
   // Initialize Embla Carousel for the first list and get the API
   const [emblaRefOffers, emblaApiOffers] = useEmblaCarousel({
-    loop: false,
+    loop: true,
   }); // Get the API
   const handleViewAllClick = () => {
     alert("Button clicked!");
@@ -119,20 +119,34 @@ export default function BestSellers() {
     alert("Button clicked!");
   };
   return (
-    <section className="w-full flex flex-col py-4 sm:py-8 md:py-10 lg:py-12">
+    <section className="w-full flex flex-col py-4 sm:py-8 md:py-10 lg:py-16 px-2 md:px-10 lg:px-32 bg-black">
       <div className="flex justify-between items-center mb-1 md:mb-4">
-        <Heading className="mb-0">Best Sellers</Heading>
+        <Heading
+          className="mb-0 "
+          subheading="Check out the very best and most popular Mithu deals and offers here"
+          titleColor="text-white"
+          subheadingColor="text-white"
+        >
+          Best Sellers
+        </Heading>
         <CarouselNavigation
           emblaApi={emblaApiOffers} // Pass the API instance
           onViewAllClick={handleViewAllClick} // Pass the click handler
+          viewAllTextColor="text-white"
+          iconButtonColorClass="border-[1px] border-gray-50"
         />
       </div>
 
-      <div className="embla mt-2" ref={emblaRefOffers}>
+      <div className="embla mt-2 " ref={emblaRefOffers}>
         <div className="embla__container_store">
           {bestSellers.map((seller) => (
-            <div className="embla__slide--sellers-card" key={seller.id}>
-              <Card key={seller.id} image={seller.image} logo={seller.logo}>
+            <div className="embla__slide--sellers-card " key={seller.id}>
+              <Card
+                key={seller.id}
+                image={seller.image}
+                logo={seller.logo}
+                className="bg-white"
+              >
                 <div className={`flex flex-col text-[#010101] `}>
                   <span className="font-normal text-base text-[#888] ">
                     {seller.location}

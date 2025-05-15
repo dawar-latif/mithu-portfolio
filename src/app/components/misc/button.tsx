@@ -16,12 +16,11 @@ const Button: React.FC<ButtonProps> = ({
   ...rest
 }) => {
   const baseStyles =
-    "inline-flex items-center cursor-pointer justify-center rounded-md px-6 py-3 text-base font-semibold focus:outline-none focus:ring-2 focus:ring-offset-2";
+    "inline-flex items-center cursor-pointer justify-center rounded-md px-6 py-3 text-base font-semibold ";
 
   const variantStyles = {
-    primary: "bg-black text-white hover:bg-gray-800 focus:ring-black",
-    secondary:
-      "bg-white text-black border border-gray-300 hover:bg-gray-100 focus:ring-gray-500",
+    primary: "bg-black text-white hover:bg-gray-800 ",
+    secondary: "bg-white text-black border border-gray-300 hover:bg-gray-100 ",
   };
 
   const buttonClasses = `${baseStyles} ${variantStyles[variant]} ${className}`;
