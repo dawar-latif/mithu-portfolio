@@ -129,12 +129,12 @@ export default function BestSellers() {
         >
           Best Sellers
         </Heading>
-        <CarouselNavigation
+        {/* <CarouselNavigation
           emblaApi={emblaApiOffers} // Pass the API instance
           onViewAllClick={handleViewAllClick} // Pass the click handler
           viewAllTextColor="text-white"
           iconButtonColorClass="border-[1px] border-gray-50"
-        />
+        /> */}
       </div>
 
       <div className="embla mt-2 " ref={emblaRefOffers}>

@@ -32,7 +32,7 @@ export default function Card({
           />
         )}
         {image && imageBadgeText && (
-          <div className="bg-[#08AD04] max-w-[130px] h-[32px] flex justify-center gap-1 absolute top-5 left-0 rounded-tr-xl rounded-br-xl text-white text-base p-1">
+          <div className="bg-[#08AD04] min-w-[130px]  flex justify-center gap-1 absolute top-6 left-0 rounded-tr-xl rounded-br-xl text-white text-sm p-1">
             <Image
               src={coin}
               className="size-[20px] object-contain"

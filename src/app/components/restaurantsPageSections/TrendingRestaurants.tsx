@@ -5,6 +5,7 @@ import Heading from "../misc/heading";
 import Card from "../misc/card";
 import Image from "next/image";
 import Button from "../misc/button";
+import { GoogleMap, LoadScript, Marker } from "@react-google-maps/api";
 
 import Restaurant1 from "../../../../public/HomePage/TrendingRestaurants/Images/Cover Image.png";
 import Restaurant2 from "../../../../public/HomePage/TrendingRestaurants/Images/Cover Image-1.png";
@@ -26,90 +27,97 @@ import cup from "../../../../public/RestaurantPage/filterIcons/Cup With Straw.pn
 import popular from "../../../../public/RestaurantPage/filterIcons/Budget Friendly.png";
 import open from "../../../../public/RestaurantPage/filterIcons/openNow.png";
 import newMithu from "../../../../public/RestaurantPage/filterIcons/mithuNew.png";
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 
 const trendingRestaurants = [
   {
     id: 1,
-    image: Restaurant1, // Replace with actual image path
-    logo: Restaurantlogo1, // Replace with actual logo path
+    image: Restaurant1,
+    logo: Restaurantlogo1,
     pointsBack: "15 % points back",
     distance: "3.2 km away",
     rating: 5.0,
     name: "McDonald's",
     cuisine: "American Cusine",
+    location: { lat: 24.7136, lng: 46.6753 },
   },
   {
     id: 2,
-    image: Restaurant2, // Replace with actual image path
-    logo: Restaurantlogo2, // Replace with actual logo path
+    image: Restaurant2,
+    logo: Restaurantlogo2,
     pointsBack: "20 % points back",
     distance: "3.8 km away",
     rating: 4.8,
     name: "Starbucks",
     cuisine: "Coffee House",
+    location: { lat: 24.758, lng: 46.6412 },
   },
   {
     id: 3,
-    image: Restaurant3, // Replace with actual image path
-    logo: Restaurantlogo3, // Replace with actual logo path
+    image: Restaurant3,
+    logo: Restaurantlogo3,
     pointsBack: "10 % points back",
     distance: "4.3 km away",
     rating: 4.7,
     name: "KFC",
     cuisine: "Fast Food House",
+    location: { lat: 24.735, lng: 46.701 },
   },
   {
     id: 4,
-    image: Restaurant4, // Replace with actual image path
-    logo: Restaurantlogo4, // Replace with actual logo path
+    image: Restaurant4,
+    logo: Restaurantlogo4,
     pointsBack: "25 % points back",
     distance: "2.1 km away",
     rating: 3.9,
     name: "Burger King",
     cuisine: "Burger Speciality",
+    location: { lat: 24.6877, lng: 46.7219 },
   },
   {
     id: 5,
-    image: Restaurant1, // Replace with actual image path
-    logo: Restaurantlogo1, // Replace with actual logo path
+    image: Restaurant1,
+    logo: Restaurantlogo1,
     pointsBack: "15 % points back",
     distance: "3.2 km away",
     rating: 5.0,
     name: "McDonald's",
     cuisine: "American Cusine",
+    location: { lat: 24.7, lng: 46.65 },
   },
   {
     id: 6,
-    image: Restaurant2, // Replace with actual image path
-    logo: Restaurantlogo2, // Replace with actual logo path
+    image: Restaurant2,
+    logo: Restaurantlogo2,
     pointsBack: "20 % points back",
     distance: "3.8 km away",
     rating: 4.8,
     name: "Starbucks",
     cuisine: "Coffee House",
+    location: { lat: 24.72, lng: 46.69 },
   },
   {
     id: 7,
-    image: Restaurant3, // Replace with actual image path
-    logo: Restaurantlogo3, // Replace with actual logo path
+    image: Restaurant3,
+    logo: Restaurantlogo3,
     pointsBack: "10 % points back",
     distance: "4.3 km away",
     rating: 4.7,
     name: "KFC",
     cuisine: "Fast Food House",
+    location: { lat: 24.695, lng: 46.71 },
   },
   {
     id: 8,
-    image: Restaurant4, // Replace with actual image path
-    logo: Restaurantlogo4, // Replace with actual logo path
+    image: Restaurant4,
+    logo: Restaurantlogo4,
     pointsBack: "25 % points back",
     distance: "2.1 km away",
     rating: 3.9,
     name: "Burger King",
     cuisine: "Burger Speciality",
+    location: { lat: 24.74, lng: 46.68 },
   },
-  // Add more trending restaurants as needed
 ];
 
 const filterOptions = [
@@ -121,10 +129,25 @@ const filterOptions = [
   // Add more filter options as needed
 ];
 
+const sortOptions = [
+  { value: "popular", label: "Popular" },
+  { value: "rating", label: "Rating" },
+  { value: "distance", label: "Distance" },
+  { value: "newest", label: "Newest" },
+];
+
 export default function TrendingRestaurants() {
   const [currentView, setCurrentView] = useState("list"); // State to toggle between 'list' and 'map'
 
   const [emblaRefOffers] = useEmblaCarousel({ loop: false }); // Keeping Embla if you still use it for a part of the listing
+
+  const [isSortDropdownOpen, setIsSortDropdownOpen] = useState(false);
+  const [selectedSort, setSelectedSort] = useState(sortOptions[0]); // Default to the first option
+  const sortDropdownRef = useRef<HTMLDivElement>(null);
+
+  const toggleSortDropdown = () => {
+    setIsSortDropdownOpen((prev) => !prev);
+  };
 
   const handleFilterClick = (filterId: number) => {
     console.log(`Filter ${filterId} clicked`);
@@ -137,8 +160,53 @@ export default function TrendingRestaurants() {
   const handleToggleView = () => {
     setCurrentView((prevView) => (prevView === "list" ? "map" : "list"));
   };
+  const handleLoadMore = () => {
+    alert("load more clicked");
+  };
+
+  const handleSortOptionClick = (option: (typeof sortOptions)[0]) => {
+    setSelectedSort(option);
+    setIsSortDropdownOpen(false);
+    console.log("Sorting by:", option.value);
+    // Trigger your actual sorting logic here, e.g., call a prop function
+    // onSortChange(option.value);
+  };
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      if (
+        sortDropdownRef.current &&
+        !sortDropdownRef.current.contains(event.target as Node)
+      ) {
+        setIsSortDropdownOpen(false);
+      }
+    };
+
+    if (isSortDropdownOpen) {
+      document.addEventListener("mousedown", handleClickOutside);
+    }
+
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, [isSortDropdownOpen]);
+
+  const googleMapsApiKey = "AIzaSyCdx38MbfGzv1gSZZpO1cEp5bqyBkKvZSw";
+
+  // Define map options (center, zoom, etc.)
+  const mapOptions = {
+    center: { lat: 24.7136, lng: 46.6753 }, // Center map on Riyadh (example coordinates)
+    zoom: 11, // Example zoom level
+    disableDefaultUI: true, // Optional: hide default map controls
+    zoomControl: true,
+  };
+
+  const containerStyle = {
+    width: "100%",
+    height: "100%",
+  };
+
   return (
-    <section className="w-full flex flex-col py-4 sm:py-8 md:py-16 lg:py-32">
+    <section className="w-full flex flex-col py-4 sm:py-8 md:py-10 lg:py-12">
       <h1 className="text-xl md:text-2xl lg:text-3xl font-bold text-black pb-1 font-manrope ">
         Restaurants in Riyadh, KSA
       </h1>
@@ -187,7 +255,7 @@ export default function TrendingRestaurants() {
         </Heading>
         {/* sort / map button  */}
         <div className="flex items-center gap-2 flex-shrink-0 justify-center">
-          <Button
+          {/* <Button
             className="px-4 py-2 "
             onClick={handleSortClick}
             variant="secondary"
@@ -208,9 +276,55 @@ export default function TrendingRestaurants() {
                 d="m19.5 8.25-7.5 7.5-7.5-7.5"
               />
             </svg>
-          </Button>
+          </Button> */}
+          {/* Sort Dropdown */}
+          <div className="relative " ref={sortDropdownRef}>
+            <Button
+              className="px-4 py-2 flex gap-1 md:gap-2"
+              onClick={toggleSortDropdown}
+              variant="secondary"
+            >
+              <Image
+                src={sortIcon}
+                className="size-5"
+                alt="sort"
+                width={20}
+                height={20}
+              />
+              {selectedSort.label}
+            </Button>
 
-          <Button className="px-4 py-2 " onClick={handleToggleView}>
+            {isSortDropdownOpen && (
+              <div
+                className="absolute z-10 mt-2 w-40 rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5 focus:outline-none"
+                role="menu"
+                aria-orientation="vertical"
+                aria-labelledby="sort-menu-button"
+              >
+                <div className="py-1">
+                  {sortOptions.map((option) => (
+                    <button
+                      key={option.value}
+                      className={`block w-full text-left px-4 py-2 text-sm ${
+                        selectedSort.value === option.value
+                          ? "bg-gray-100 text-gray-900"
+                          : "text-gray-700"
+                      } hover:bg-gray-100`}
+                      role="menuitem"
+                      onClick={() => handleSortOptionClick(option)}
+                    >
+                      {option.label}
+                    </button>
+                  ))}
+                </div>
+              </div>
+            )}
+          </div>
+
+          <Button
+            className="px-4 py-2 flex gap-1 md:gap-2"
+            onClick={handleToggleView}
+          >
             {currentView === "list" ? (
               <Image src={mapIcon} className="size-5" alt="sort" />
             ) : (
@@ -222,13 +336,12 @@ export default function TrendingRestaurants() {
       </div>
 
       {/* Content Area: List or List + Map */}
+      {/* Apply fixed height to the parent flex container on medium screens and up when map is visible */}
       <div
         className={`flex flex-col md:flex-row gap-4 ${
-          currentView === "map" ? "md:h-[600px]" : ""
+          currentView === "map" ? "md:h-[500px]" : ""
         }`}
       >
-        {" "}
-        {/* Add height for map view */}
         {/* Restaurant List Section */}
         {currentView === "list" ? (
           <div className="w-full grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
@@ -260,7 +373,6 @@ export default function TrendingRestaurants() {
                     </div>
                   </div>
                   <Button className="py-[4px] px-[12px] gap-[2px]">
-                    {/* Replace with actual star icon rendering */}
                     <Image
                       src={star}
                       alt="rating"
@@ -277,9 +389,8 @@ export default function TrendingRestaurants() {
         ) : (
           <>
             {/* List on the left (md+) or full width stacked (small screens) */}
-            <div className="w-full md:w-1/2 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-1 gap-4 overflow-y-auto p-1 h-96 md:h-full">
-              {" "}
-              {/* Added overflow and height for scrolling */}
+            {/* Apply fixed height and always-on scrolling when in map view */}
+            <div className="w-full md:w-8/12 grid grid-cols-1  lg:grid-cols-2 gap-4 p-1 h-[500px] overflow-y-auto">
               {trendingRestaurants.map((res) => (
                 <Card
                   key={res.id}
@@ -323,12 +434,29 @@ export default function TrendingRestaurants() {
             </div>
 
             {/* Map Section on the right (md+) or full width stacked (small screens) */}
-            <div className="w-full md:w-1/2 bg-gray-200 rounded-lg overflow-hidden">
-              {/* Placeholder for your actual Map Component */}
-              <div className="w-full h-full flex items-center justify-center text-gray-500">
-                Map Component Placeholder
-                {/* <YourMapComponent data={trendingRestaurants} /> */}
-              </div>
+            {/* Apply fixed height on small screens and fill parent height on md+ */}
+            <div className="w-full md:w-4/12 rounded-lg overflow-hidden h-96 md:h-full">
+              <LoadScript googleMapsApiKey={googleMapsApiKey}>
+                <GoogleMap
+                  mapContainerStyle={containerStyle}
+                  center={mapOptions.center}
+                  zoom={mapOptions.zoom}
+                  options={mapOptions}
+                >
+                  {trendingRestaurants.map((res) =>
+                    res.location?.lat && res.location?.lng ? (
+                      <Marker
+                        key={`marker-${res.id}`}
+                        position={{
+                          lat: res.location.lat,
+                          lng: res.location.lng,
+                        }}
+                        title={res.name}
+                      />
+                    ) : null
+                  )}
+                </GoogleMap>
+              </LoadScript>
             </div>
           </>
         )}
