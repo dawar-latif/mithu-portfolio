@@ -4,7 +4,8 @@ import useEmblaCarousel from "embla-carousel-react";
 import Autoplay from "embla-carousel-autoplay";
 import Image, { StaticImageData } from "next/image";
 
-import logo from "../../../../public/RestaurantPage/slider/slider.jpg";
+import logo from "../../../../public/RestaurantPage/Banners/1.png";
+import logo1 from "../../../../public/RestaurantPage/Banners/.png";
 import SlideCard from "../cards/slideCard";
 
 interface SlideData {

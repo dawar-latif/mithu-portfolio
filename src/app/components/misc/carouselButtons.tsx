@@ -3,22 +3,22 @@ import React, { useEffect, useState, useCallback } from "react";
 import Image from "next/image";
 
 import nextIcon from "../../../../public/HomePage/Next Icon.svg";
+import nextIconWhite from "../../../../public/RestaurantPage/Iconss/Next Icon.svg";
 import previousIcon from "../../../../public/HomePage/Previous Icon.svg";
+import previousIconWhite from "../../../../public/RestaurantPage/Iconss/Previous Icon.svg"; // Corrected potential typo/source based on standard naming
 
 interface CarouselNavigationProps {
   emblaApi: any | undefined;
   onViewAllClick?: () => void;
   viewAllHref?: string;
-  viewAllTextColor?: string;
-  iconButtonColorClass?: string;
+  variant?: "default" | "dark";
 }
 
 function CarouselNavigation({
   emblaApi,
   onViewAllClick,
   viewAllHref,
-  viewAllTextColor = "text-[#B218B7]",
-  iconButtonColorClass = "text-black",
+  variant = "default",
 }: CarouselNavigationProps) {
   const [canScrollPrev, setCanScrollPrev] = useState(false);
   const [canScrollNext, setCanScrollNext] = useState(false);
@@ -48,24 +48,29 @@ function CarouselNavigation({
     ? { href: viewAllHref }
     : { onClick: onViewAllClick, type: "button" as const };
 
+  const viewAllTextColorClass =
+    variant === "dark" ? "text-white" : "text-[#B218B7]";
+  const prevIconSrc = variant === "dark" ? previousIconWhite : previousIcon;
+  const nextIconSrc = variant === "dark" ? nextIconWhite : nextIcon;
+
   return (
     <div className="flex items-center gap-2 md:gap-4">
       {(onViewAllClick || viewAllHref) && (
         <ViewAllElement
           {...viewAllProps}
-          className={`hover:underline text-sm sm:text-base md:text-lg font-semibold bg-transparent border-none cursor-pointer p-0 ${viewAllTextColor}`}
+          className={`hover:underline text-sm sm:text-base md:text-lg font-semibold bg-transparent border-none cursor-pointer p-0 ${viewAllTextColorClass}`}
         >
           View&nbsp;all&nbsp;&gt;
         </ViewAllElement>
       )}
 
       <button
-        className={`embla__button embla__button--prev disabled:opacity-50 disabled:cursor-not-allowed rounded-full  cursor-pointer ${iconButtonColorClass}`}
+        className={`embla__button embla__button--prev disabled:opacity-50 disabled:cursor-not-allowed rounded-full cursor-pointer`}
         onClick={() => emblaApi?.scrollPrev()}
         disabled={!canScrollPrev}
       >
         <Image
-          src={previousIcon}
+          src={prevIconSrc}
           alt="Previous"
           className="size-4 md:size-8"
           width={32}
@@ -73,12 +78,12 @@ function CarouselNavigation({
         />
       </button>
       <button
-        className={`embla__button embla__button--next disabled:opacity-50 disabled:cursor-not-allowed rounded-full  cursor-pointer ${iconButtonColorClass}`}
+        className={`embla__button embla__button--next disabled:opacity-50 disabled:cursor-not-allowed rounded-full cursor-pointer`}
         onClick={() => emblaApi?.scrollNext()}
         disabled={!canScrollNext}
       >
         <Image
-          src={nextIcon}
+          src={nextIconSrc}
           alt="Next"
           className="size-4 md:size-8"
           width={32}

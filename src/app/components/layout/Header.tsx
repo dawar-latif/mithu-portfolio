@@ -97,6 +97,7 @@ export default function Header() {
         <nav className="flex gap-2 items-center">
           {navLinks.map((link) => (
             <Link
+              key={link.label}
               href={link.href}
               className="text-[#010101] hover:text-[#3FD554] text-lg font-semibold font-manrope transition-colors"
             >

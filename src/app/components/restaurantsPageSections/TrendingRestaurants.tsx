@@ -28,6 +28,7 @@ import popular from "../../../../public/RestaurantPage/filterIcons/Budget Friend
 import open from "../../../../public/RestaurantPage/filterIcons/openNow.png";
 import newMithu from "../../../../public/RestaurantPage/filterIcons/mithuNew.png";
 import { useEffect, useRef, useState } from "react";
+import Map from "../misc/Map";
 
 const trendingRestaurants = [
   {
@@ -191,19 +192,8 @@ export default function TrendingRestaurants() {
   }, [isSortDropdownOpen]);
 
   const googleMapsApiKey = process.env.NEXT_PUBLIC_MAPS_API_KEY;
-
-  // Define map options (center, zoom, etc.)
-  const mapOptions = {
-    center: { lat: 24.7136, lng: 46.6753 }, // Center map on Riyadh (example coordinates)
-    zoom: 11, // Example zoom level
-    disableDefaultUI: true, // Optional: hide default map controls
-    zoomControl: true,
-  };
-
-  const containerStyle = {
-    width: "100%",
-    height: "100%",
-  };
+  const mapCenter = { lat: 24.7136, lng: 46.6753 }; // Center map on Riyadh
+  const mapZoom = 11;
 
   return (
     <section className="w-full flex flex-col py-4 sm:py-8 md:py-10 lg:py-12">
@@ -255,29 +245,6 @@ export default function TrendingRestaurants() {
         </Heading>
         {/* sort / map button  */}
         <div className="flex items-center gap-2 flex-shrink-0 justify-center">
-          {/* <Button
-            className="px-4 py-2 "
-            onClick={handleSortClick}
-            variant="secondary"
-          >
-            <Image src={sortIcon} className="size-5" alt="sort" />
-            Sort
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              fill="none"
-              viewBox="0 0 24 24"
-              strokeWidth={1.5}
-              stroke="currentColor"
-              className="size-4"
-            >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                d="m19.5 8.25-7.5 7.5-7.5-7.5"
-              />
-            </svg>
-          </Button> */}
-          {/* Sort Dropdown */}
           <div className="relative " ref={sortDropdownRef}>
             <Button
               className="px-4 py-2 flex gap-1 md:gap-2"
@@ -436,27 +403,12 @@ export default function TrendingRestaurants() {
             {/* Map Section on the right (md+) or full width stacked (small screens) */}
             {/* Apply fixed height on small screens and fill parent height on md+ */}
             <div className="w-full md:w-4/12 rounded-lg overflow-hidden h-96 md:h-full">
-              <LoadScript googleMapsApiKey={googleMapsApiKey ?? ""}>
-                <GoogleMap
-                  mapContainerStyle={containerStyle}
-                  center={mapOptions.center}
-                  zoom={mapOptions.zoom}
-                  options={mapOptions}
-                >
-                  {trendingRestaurants.map((res) =>
-                    res.location?.lat && res.location?.lng ? (
-                      <Marker
-                        key={`marker-${res.id}`}
-                        position={{
-                          lat: res.location.lat,
-                          lng: res.location.lng,
-                        }}
-                        title={res.name}
-                      />
-                    ) : null
-                  )}
-                </GoogleMap>
-              </LoadScript>
+              <Map
+                apiKey={googleMapsApiKey ?? ""} // Pass the API key
+                center={mapCenter} // Pass map center
+                zoom={mapZoom} // Pass map zoom
+                restaurants={trendingRestaurants as any} // Pass an array containing the single restaurant data (cast as any for simplicity if types are complex)
+              />
             </div>
           </>
         )}
