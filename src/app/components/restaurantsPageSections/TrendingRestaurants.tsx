@@ -190,7 +190,7 @@ export default function TrendingRestaurants() {
     };
   }, [isSortDropdownOpen]);
 
-  const googleMapsApiKey = "AIzaSyCdx38MbfGzv1gSZZpO1cEp5bqyBkKvZSw";
+  const googleMapsApiKey = process.env.NEXT_PUBLIC_MAPS_API_KEY;
 
   // Define map options (center, zoom, etc.)
   const mapOptions = {
@@ -436,7 +436,7 @@ export default function TrendingRestaurants() {
             {/* Map Section on the right (md+) or full width stacked (small screens) */}
             {/* Apply fixed height on small screens and fill parent height on md+ */}
             <div className="w-full md:w-4/12 rounded-lg overflow-hidden h-96 md:h-full">
-              <LoadScript googleMapsApiKey={googleMapsApiKey}>
+              <LoadScript googleMapsApiKey={googleMapsApiKey ?? ""}>
                 <GoogleMap
                   mapContainerStyle={containerStyle}
                   center={mapOptions.center}
